@@ -11,6 +11,7 @@ This project demonstrates the integration of an on-premises Active Directory env
 ## Prerequisites
 
 This is the second lab of the [Okta IAM Lab Series](https://github.com/RyanKennon/Okta-Lab-Series/tree/main).
+Complete all previous labs before starting this one.
 
 The following should be in place before starting:
 
@@ -20,10 +21,6 @@ The following should be in place before starting:
   - Organizational Units created (`_Users` and `_Groups`)
   - At least three AD users created with department attributes populated
   - At least four AD security groups created with users assigned
-
-For environment setup instructions refer to the 
-[Active Directory Enterprise Administration Lab](https://github.com/RyanKennon/Active-Directory) 
-through the **Create Organizational Units** section.
 
 ---
 
@@ -335,5 +332,5 @@ from multiple sources.
 </p>
 
 <p align="right">
-  <a href="link-to-lab-3-repo">Lab 3 — RBAC Design & Implementation ➡</a>
+  <a href="https://github.com/RyanKennon/Okta-RBAC/tree/main">Lab 3 — RBAC Design & Implementation ➡</a>
 </p>
