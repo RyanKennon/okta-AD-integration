@@ -34,7 +34,7 @@
   <img width="469" height="312" alt="image" src="https://github.com/user-attachments/assets/19e7a27d-2232-4504-b522-e87e1b69a1dc" />
 </p>
 
-10. In the **COnnecte an Organizational Unit to Okta** page make sure only **_users** and **_groups** are selected then press **Next**
+10. In the **Connect an Organizational Unit to Okta** page make sure only **_users** and **_groups** are selected then press **Next**
 
 <p align="center">
   <img width="747" height="767" alt="image" src="https://github.com/user-attachments/assets/d2d7274a-c082-474b-bb10-ba3d29edef73" />
@@ -137,5 +137,111 @@
 
 ---
 
-### Just-In-Time (JIT) Provisioning
+### 6) Enable Just-In-Time (JIT) Provisioning
+
+1. Open the **Directory** tab then go to **Directory Integrations**
+2. Choose your **Directory** then open the **To Okta** tab
+3. Under the **General** section select **Edit**
+4. Check the box label **Create and Update Users on Login** next to **JIT Provisioning**
+
+<p align="center">
+  <img width="715" height="592" alt="image" src="https://github.com/user-attachments/assets/fcd7df0d-f354-47cb-928b-c146789d37f6" />
+</p>
+
+5. **Save**
+6. In **Active Directory Users and Computers** create a new **User** in the **_Users** folder with the following information:
+   - **First Name:** Sarah
+   - **Last Name:** Connor
+   - **User Logon Name:** sarah.connor
+  
+<p align="center">
+  <img width="436" height="374" alt="image" src="https://github.com/user-attachments/assets/8a93c49f-5610-4e90-bce8-8273f6893bed" />
+</p>
+
+7. Open an **Incognito Browser** and sign in to your **Okta Org** as **Sarah Connor**
+8. Go back to your **Okta Admin Account** then navigate to **Directory** then **People** and confirm that the profile for **Sarah Connor** has been created
+
+<p align="center">
+  <img width="1018" height="627" alt="image" src="https://github.com/user-attachments/assets/a659b554-2faa-41fd-a642-4e5cf5763fc1" />
+</p>
+
+---
+
+### 7) User Profile Mapping in Active Directory
+
+1. In **Active Directory Users and Computers** find the **John Smith** profile and select **Properties**
+2. Go to the **Organization** tab then for the **Job Title** enter **Financial Analyst** then press **Ok**
+
+<p align="center">
+  <img width="409" height="535" alt="image" src="https://github.com/user-attachments/assets/98db4208-3315-41a9-9947-37575fc23751" />
+</p>
+
+3. In **Okta** go to **Directory** then **Directory Integrations**
+4. Choose your **Directory** then select the **Import** tab
+5. Select **Import Now** then **incremental Import** then select **Import**
+
+<p align="center">
+  <img width="301" height="285" alt="image" src="https://github.com/user-attachments/assets/a46abe63-07fb-41ce-bbb7-7f24490ac7b8" />
+</p>
+
+6. Go to the **directory** tab then **People** then **John Smith** then the **Profile** tab
+7. Confirm his **Title** sshows as **Financial Analyst**
+
+<p align="center">
+  <img width="520" height="431" alt="image" src="https://github.com/user-attachments/assets/7508aff4-69e3-4a8e-bd31-2ff88c03094f" />
+</p>
+
+---
+
+### 8) Group Sync
+
+1. Go to the **Directory** then **Groups**
+2. Confirm the follwing groups appeared with an **AD** icon next to them
+   - **Finance**
+   - **IT**
+   - **Human Resources**
+   - **Kennon Technologies Employees**
+
+<p align="center">
+  <img width="830" height="253" alt="image" src="https://github.com/user-attachments/assets/110eafa9-6e09-4976-8f72-6fd602cccecd" />
+</p>
+
+3. Open the **AD Synced Finance Group** and verify **John Smith** appears as a member
+
+<p align="center">
+  <img width="1040" height="650" alt="image" src="https://github.com/user-attachments/assets/da518ec4-05df-4524-8fa7-e5c0e643cae6" />
+</p>
+
+4. Go **Back to Groups** and open the **Empty Native Finance Group (With the Okta Logo)** and open it up
+5. Hit the **Actions** dropdown then press **Delete** then **Delete Group**
+
+<p align="center">
+  <img width="1015" height="529" alt="image" src="https://github.com/user-attachments/assets/6ecf9570-6252-4d6f-bf1d-4b74fc9de485" />
+</p>
+
+6. Delete the **Native IT, Human Resources, and Kennon Technologies Employees Groups**
+7. Go back to **Active Directory Users and Computers** and open the **Properties** for the **Sarah Connor** profile
+8. Open the **Member Of** tab then select **Add**
+9. Add **Sarah Connor** to the **Finance** and **Kennon Technologies Employees** groups
+
+<p align="center">
+  <img width="408" height="535" alt="image" src="https://github.com/user-attachments/assets/a46cc65d-cf8a-41ec-a72f-9e501bbaf200" />
+</p>
+
+10. In **Okta** go to **Directory** then **Directory Integrations** then open your **Directory**
+11. Open the **Import** tab then **select **Import Now**
+12. Select **Incremental Import** then run an **Import**
+
+<p align="center">
+  <img width="299" height="403" alt="image" src="https://github.com/user-attachments/assets/9c450eaf-eff8-46d0-a47d-4cc9b1386ddf" />
+</p>
+
+13. Now go to **Directory** then **Groups** then open the **Finance** group
+14. Confirm that **Sarah Connor** appears in the **People** tab
+
+<p align="center">
+  <img width="1016" height="381" alt="image" src="https://github.com/user-attachments/assets/1f40da89-ad5e-4b24-88f1-93137a95e29e" />
+</p>
+
+---
 
