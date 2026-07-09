@@ -10,9 +10,7 @@ This project demonstrates the integration of an on-premises Active Directory env
 
 ## Prerequisites
 
-This lab is part of the [Okta IAM Lab Series](https://github.com/RyanKennon/Okta-Lab-Series/tree/main). 
-Complete [Lab 1 — Okta Tenant Setup & Configuration](https://github.com/RyanKennon/Okta-Tenant-Setup) 
-before starting this lab.
+This is the second lab of the [Okta IAM Lab Series](https://github.com/RyanKennon/Okta-Lab-Series/tree/main).
 
 The following should be in place before starting:
 
@@ -326,11 +324,9 @@ from multiple sources.
 
 ---
 
-> **Note:** This lab is intentionally left open. The Okta org and Active 
-> Directory environment configured here serve as the foundation for all 
-> subsequent Okta labs. Continue to 
-> [Lab 3 — RBAC Design & Implementation](link-to-lab-3-repo) to build 
-> on this configuration.
+> **Note:** This lab is intentionally left open. The Okta org configured 
+> here serves as the foundation for all subsequent Okta labs in the 
+> [Okta IAM Lab Series](https://github.com/RyanKennon/Okta-Lab-Series/tree/main).
 
 ---
 
