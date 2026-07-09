@@ -2,13 +2,66 @@
   <img width="900" height="500" alt="image" src="https://github.com/user-attachments/assets/2c068a6c-d82b-4a43-ad32-d9fe559e1837" />
 </p>
 
-# okta-AD-integration
+# Okta Active Directory Integration
 
+This project demonstrates the integration of an on-premises Active Directory environment with Okta as the cloud Identity Provider, simulating the directory synchronization responsibilities of an IAM Analyst or Identity Engineer in a hybrid identity environment. Building on the Okta tenant configured in the previous lab, this lab walks through installing and configuring the Okta AD Agent on a Windows Server domain controller, running Full and Incremental imports to sync user identities and security groups from Active Directory into Okta, enabling Delegated Authentication so users authenticate with their Active Directory credentials, configuring Just-In-Time provisioning for automatic account creation on first login, validating user profile attribute mapping between Active Directory and Okta, and verifying group sync from Active Directory. All configurations are hands-on in a live Okta trial org connected to a Windows Server 2022 domain controller hosted in Microsoft Azure and reflect real-world IAM practices around hybrid identity management and directory integration.
 
+---
 
+## Prerequisites
 
+This lab is part of the [Okta IAM Lab Series](https://github.com/RyanKennon/Okta-Lab-Series/tree/main). 
+Complete [Lab 1 — Okta Tenant Setup & Configuration](https://github.com/RyanKennon/Okta-Tenant-Setup) 
+before starting this lab.
+
+The following should be in place before starting:
+
+- Active Okta trial org with users, groups, and policies configured from Lab 1
+- Windows Server 2022 VM running in Microsoft Azure
+- Active Directory domain configured with the following:
+  - Organizational Units created (`_Users` and `_Groups`)
+  - At least three AD users created with department attributes populated
+  - At least four AD security groups created with users assigned
+
+For environment setup instructions refer to the 
+[Active Directory Enterprise Administration Lab](https://github.com/RyanKennon/Active-Directory) 
+through the **Create Organizational Units** section.
+
+---
+
+## Environments and Technologies Used
+
+- Okta Identity Cloud (Trial Org)
+- Okta Admin Console
+- Okta Universal Directory
+- Okta AD Agent
+- Microsoft Azure
+- Windows Server 2022
+- Active Directory Domain Services (AD DS)
+- Active Directory Users and Computers (ADUC)
+- Remote Desktop Protocol (RDP)
+
+---
+
+## Table of Contents
+
+- [1) Install Active Directory Agent](#1-install-active-directory-agent)
+- [2) Import from Active Directory](#2-import-from-active-directory)
+- [3) Run an Incremental Import](#3-run-an-incremental-import)
+- [4) Enable Delegated Authentication](#4-enable-delegated-authentication)
+- [5) Enable Just-In-Time (JIT) Provisioning](#5-enable-just-in-time-jit-provisioning)
+- [6) User Profile Mapping in Active Directory](#6-user-profile-mapping-in-active-directory)
+- [7) Verify Group Sync from Active Directory](#7-verify-group-sync-from-active-directory)
+
+---
 
 ### 1) Install Active Directory Agent
+
+The Okta Active Directory Agent is a lightweight service installed on the 
+domain controller that acts as the bridge between on-premises Active Directory 
+and the Okta Identity Cloud. Installing and configuring the agent establishes 
+the connection that enables user and group sync, delegated authentication, and 
+Just-In-Time provisioning.
 
 1. In **Okta** open the **Directory** tab then go to **Directory Integrations**
 2. Click **Add Directory** then **Add Active Directory**
@@ -51,6 +104,11 @@
 
 ### 2) Import from Active Directory
 
+A Full Import pulls all users and groups from Active Directory into Okta based 
+on the configured OU scope. Confirming the import assignments links the AD 
+accounts to their corresponding Okta user profiles, making Active Directory 
+the authoritative source for those identities.
+
 1. In **Okta** open the **Directory** tab then select **Directory Integrations**
 2. Choose your **Directory**
 3. Open the **Import** tab then **Import Now**
@@ -65,26 +123,22 @@
   <img width="625" height="600" alt="image" src="https://github.com/user-attachments/assets/20a7e196-9d6d-4af8-a307-0d95d82181ac" />
 </p>
 
-5. Once complete the agents will appear
+5. Once complete the users will appear
 6. Check the box next to all three agents then **Confirm Assignments**
 
 <p align="center">
   <img width="978" height="694" alt="image" src="https://github.com/user-attachments/assets/c8084b53-5d9e-4d7a-bcb5-522c0a1d0b21" />
 </p>
 
-7. Check **Auto-Activate Users After COnfirmation** then **Confirm**
+7. Check **Auto-Activate Users After Confirmation** then **Confirm**
 
 <p align="center">
   <img width="587" height="379" alt="image" src="https://github.com/user-attachments/assets/d04bca68-e42b-4475-9290-88599b5d7371" />
 </p>
 
----
-
-### 3) Confirm Import was Successful
-
-1. Open the **Directory** tab then go to **People**
-2. Click **John Smith**
-3. It should say **Profile Sourced by Active Directory**
+8. Open the **Directory** tab then go to **People**
+9. Click **John Smith**
+10. Confirm the profile says **Profile Sourced by Active Directory**
 
 <p align="center">
   <img width="737" height="430" alt="capture1 drawio" src="https://github.com/user-attachments/assets/872838b3-9f1a-4a75-ad80-905c20f6fba2" />
@@ -92,7 +146,12 @@
 
 ---
 
-### 4) Incremental Import
+### 3) Run an Incremental Import
+
+An Incremental Import picks up only the changes made in Active Directory since 
+the last import rather than re-importing everything from scratch. Running an 
+Incremental Import with no AD changes confirms the import mechanism is working 
+correctly and demonstrates the difference between Full and Incremental imports.
 
 1. Open **Directory** then **Directory Integrations**
 2. Choose your **Directory**
@@ -111,7 +170,12 @@
 
 ---
 
-### 5) Enable Delegated Authentication
+### 4) Enable Delegated Authentication
+
+Delegated Authentication allows Okta to pass password validation back to Active 
+Directory, meaning users authenticate with their existing Windows credentials 
+instead of maintaining a separate Okta password. This ensures a single 
+credential experience across both on-premises and cloud resources.
 
 1. Go to the **Directory** tab then **Directory Integrations**
 2. Choose your **Directory**
@@ -122,7 +186,7 @@
   <img width="741" height="243" alt="image" src="https://github.com/user-attachments/assets/fe458857-9a37-4ed7-920a-617231ad189c" />
 </p>
 
-5. Click **Test Delegatged Authentication**
+5. Click **Test Delegated Authentication**
 6. Enter the credentials for **John Smith** then select **Authenticate**
 
 <p align="center">
@@ -137,12 +201,18 @@
 
 ---
 
-### 6) Enable Just-In-Time (JIT) Provisioning
+### 5) Enable Just-In-Time (JIT) Provisioning
+
+Just-In-Time provisioning automatically creates an Okta user account the first 
+time a user authenticates via delegated authentication, even if they have not 
+been manually imported or synced yet. This eliminates the dependency on import 
+schedules and ensures users can always access Okta as long as they exist in 
+Active Directory.
 
 1. Open the **Directory** tab then go to **Directory Integrations**
 2. Choose your **Directory** then open the **To Okta** tab
 3. Under the **General** section select **Edit**
-4. Check the box label **Create and Update Users on Login** next to **JIT Provisioning**
+4. Check the box labeled **Create and Update Users on Login** next to **JIT Provisioning**
 
 <p align="center">
   <img width="715" height="592" alt="image" src="https://github.com/user-attachments/assets/fcd7df0d-f354-47cb-928b-c146789d37f6" />
@@ -167,7 +237,12 @@
 
 ---
 
-### 7) User Profile Mapping in Active Directory
+### 6) User Profile Mapping in Active Directory
+
+User profile mapping defines how Active Directory attributes flow into Okta 
+user profile fields. Updating an attribute in Active Directory and running an 
+Incremental Import validates that the mapping is working correctly and that 
+profile changes in AD are automatically reflected in Okta.
 
 1. In **Active Directory Users and Computers** find the **John Smith** profile and select **Properties**
 2. Go to the **Organization** tab then for the **Job Title** enter **Financial Analyst** then press **Ok**
@@ -178,14 +253,14 @@
 
 3. In **Okta** go to **Directory** then **Directory Integrations**
 4. Choose your **Directory** then select the **Import** tab
-5. Select **Import Now** then **incremental Import** then select **Import**
+5. Select **Import Now** then **Incremental Import** then select **Import**
 
 <p align="center">
   <img width="301" height="285" alt="image" src="https://github.com/user-attachments/assets/a46abe63-07fb-41ce-bbb7-7f24490ac7b8" />
 </p>
 
-6. Go to the **directory** tab then **People** then **John Smith** then the **Profile** tab
-7. Confirm his **Title** sshows as **Financial Analyst**
+6. Go to the **Directory** tab then **People** then **John Smith** then the **Profile** tab
+7. Confirm his **Title** shows as **Financial Analyst**
 
 <p align="center">
   <img width="520" height="431" alt="image" src="https://github.com/user-attachments/assets/7508aff4-69e3-4a8e-bd31-2ff88c03094f" />
@@ -193,10 +268,16 @@
 
 ---
 
-### 8) Group Sync
+### 7) Verify Group Sync from Active Directory
+
+Group sync ensures that Active Directory security groups and their memberships 
+are reflected in Okta as directory-linked groups. Verifying group sync confirms 
+that access assignments driven by AD group membership are correctly inherited 
+in Okta, and demonstrates how to identify and resolve duplicate groups created 
+from multiple sources.
 
 1. Go to the **Directory** then **Groups**
-2. Confirm the follwing groups appeared with an **AD** icon next to them
+2. Confirm the following groups appeared with an **AD** icon next to them
    - **Finance**
    - **IT**
    - **Human Resources**
@@ -229,7 +310,7 @@
 </p>
 
 10. In **Okta** go to **Directory** then **Directory Integrations** then open your **Directory**
-11. Open the **Import** tab then **select **Import Now**
+11. Open the **Import** tab then select **Import Now**
 12. Select **Incremental Import** then run an **Import**
 
 <p align="center">
@@ -245,3 +326,18 @@
 
 ---
 
+> **Note:** This lab is intentionally left open. The Okta org and Active 
+> Directory environment configured here serve as the foundation for all 
+> subsequent Okta labs. Continue to 
+> [Lab 3 — RBAC Design & Implementation](link-to-lab-3-repo) to build 
+> on this configuration.
+
+---
+
+<p align="left">
+  <a href="https://github.com/RyanKennon/Okta-Tenant-Setup">⬅ Lab 1 — Okta Tenant Setup & Configuration</a>
+</p>
+
+<p align="right">
+  <a href="link-to-lab-3-repo">Lab 3 — RBAC Design & Implementation ➡</a>
+</p>
