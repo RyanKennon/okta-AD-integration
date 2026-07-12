@@ -61,7 +61,7 @@ Just-In-Time provisioning.
 1. In **Okta** open the **Directory** tab then go to **Directory Integrations**
 2. Click **Add Directory** then **Add Active Directory**
 3. Select **Set Up Active Directory**
-4. Select **Download Agent** then copy the **Link Address**
+4. Select **Download Agent** then **Copy Link Address**
 
 <p align="center">
   <img width="892" height="213" alt="image" src="https://github.com/user-attachments/assets/c6c21c3b-9ad5-4997-9031-fcfa24ee147c" />
@@ -205,7 +205,7 @@ schedules and ensures users can always access Okta as long as they exist in
 Active Directory.
 
 1. Open the **Directory** tab then go to **Directory Integrations**
-2. Choose your **Directory** then open the **To Okta** tab
+2. Choose your **Directory** then open the **Provisioning** tab then open **To Okta**
 3. Under the **General** section select **Edit**
 4. Check the box labeled **Create and Update Users on Login** next to **JIT Provisioning**
 
